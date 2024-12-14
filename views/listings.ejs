@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manage Listings</title>
+</head>
+<body>
+  <h1>Manage Listings</h1>
+  <form action="/admin/listings/add" method="POST">
+    <h3>Add Listing</h3>
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required>
+    <br>
+    <label for="latitude">Latitude:</label>
+    <input type="number" id="latitude" name="latitude" step="0.000001" required>
+    <br>
+    <label for="longitude">Longitude:</label>
+    <input type="number" id="longitude" name="longitude" step="0.000001" required>
+    <br>
+    <button type="submit">Add Listing</button>
+  </form>
+  <hr>
+  <h3>Existing Listings</h3>
+  <ul>
+    <% listings.forEach(listing => { %>
+      <li>
+        <form action="/admin/listings/edit" method="POST">
+          <input type="hidden" name="id" value="<%= listing.id %>">
+          <input type="text" name="name" value="<%= listing.name %>">
+          <input type="number" name="latitude" step="0.000001" value="<%= listing.latitude %>">
+          <input type="number" name="longitude" step="0.000001" value="<%= listing.longitude %>">
+          <button type="submit">Edit</button>
+        </form>
+        <form action="/admin/listings/delete" method="POST" style="display:inline;">
+          <input type="hidden" name="id" value="<%= listing.id %>">
+          <button type="submit">Delete</button>
+        </form>
+      </li>
+    <% }); %>
+  </ul>
+</body>
+</html>
